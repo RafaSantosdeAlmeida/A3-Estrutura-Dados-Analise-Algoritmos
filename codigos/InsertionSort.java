@@ -1,119 +1,51 @@
-import java.util.Random;
-
 public class InsertionSort {
 
-    // Classe para armazenar estatísticas da ordenação
-    public static class SortStats {
-        public long countComparacoes = 0;
-        public long countMovimentacoes = 0;
-        public long tempoMiliseg = 0;
+    private static long countComparacoes = 0;
+    private static long countMovimentacoes = 0;
+
+    public static long getComparacoes() {
+        return countComparacoes;
     }
 
-    // Gera vetor aleatório
-    public static int[] gerarVetorAleatorio(int tamanho) {
-        Random random = new Random();
-        int[] vetor = new int[tamanho];
+    public static long getMovimentacoes() {
+        return countMovimentacoes;
+    }
 
-        for (int i = 0; i < tamanho; i++) {
-            vetor[i] = random.nextInt(1000000);
-        }
-        return vetor;
+    public static void resetContadores() {
+        countComparacoes = 0;
+        countMovimentacoes = 0;
     }
 
     /**
-     * INSERTION SORT
+     * Implementação do algoritmo Insertion Sort.
      * @param vetor // vetor original
-     * @param crescente // true = crescente, false = decrescente
      * @param estat // estatísticas
      */
-    public static int[] ordenarInsertionSort(int[] vetor, boolean crescente, SortStats estat) {
-
-        long inicio = System.currentTimeMillis();
+    public static void ordenarInsertionSort(int[] vetor) {
 
         int n = vetor.length;
-        int[] arr = vetor.clone();
 
         for (int i = 1; i < n; i++) {
 
-            int chave = arr[i];
-            estat.countMovimentacoes++; // armazenar chave
-
+            int chave = vetor[i];
             int j = i - 1;
 
-            // Crescente
-            if (crescente == true) {
+            // Comparação inicial da entrada no loop
+            countComparacoes++;
 
-                while (j >= 0) {
-                    estat.countComparacoes++;
+            // Agora sempre ordena de forma CRESCENTE
+            while (j >= 0 && vetor[j] > chave) {
 
-                    if (arr[j] > chave) {
-                        arr[j + 1] = arr[j];
-                        estat.countMovimentacoes++;
-                        j--;
-                    } else {
-                        break;
-                    }
-                }
+                countComparacoes++; // comparação do while
 
-            } else { // Decrescente
+                vetor[j + 1] = vetor[j];
+                countMovimentacoes++; // movimentação
 
-                while (j >= 0) {
-                    estat.countComparacoes++;
-
-                    if (arr[j] < chave) {
-                        arr[j + 1] = arr[j];
-                        estat.countMovimentacoes++;
-                        j--;
-                    } else {
-                        break;
-                    }
-                }
+                j--;
             }
 
-            arr[j + 1] = chave; // coloca a chave no lugar
-            estat.countMovimentacoes++;
-        }
-
-        estat.tempoMiliseg = System.currentTimeMillis() - inicio;
-        return arr;
-    }
-
-    // MAIN DE TESTES
-    public static void main(String[] args) {
-
-        int[] tamanhos = {
-                1000,
-                5000,
-                10000,
-                50000,
-                100000
-        };
-
-        for (int tamanho : tamanhos) {
-
-            System.out.println("\n---------------------------");
-            System.out.println(" VETOR DE TAMANHO: " + tamanho);
-            System.out.println("---------------------------\n");
-
-            int[] vetor = gerarVetorAleatorio(tamanho);
-
-            SortStats estatCresc = new SortStats();
-            SortStats estatDesc = new SortStats();
-
-            // Execuções
-            ordenarInsertionSort(vetor.clone(), true, estatCresc);
-            ordenarInsertionSort(vetor.clone(), false, estatDesc);
-
-            // Resultados
-            System.out.println("INSERTION SORT (CRESCENTE)");
-            System.out.println("Comparações:   " + estatCresc.countComparacoes);
-            System.out.println("Movimentações: " + estatCresc.countMovimentacoes);
-            System.out.println("Tempo (ms):    " + estatCresc.tempoMiliseg);
-
-            System.out.println("\nINSERTION SORT (DECRESCENTE)");
-            System.out.println("Comparações:   " + estatDesc.countComparacoes);
-            System.out.println("Movimentações: " + estatDesc.countMovimentacoes);
-            System.out.println("Tempo (ms):    " + estatDesc.tempoMiliseg);
+            vetor[j + 1] = chave;
+            countMovimentacoes++; // inserção da chave
         }
     }
 }

@@ -33,7 +33,7 @@ public class QuickSort {
         vetor[indiceAleatorio] = vetor[fim];
         vetor[fim] = temp;
 
-        movimentacoes += 3; // troca = 3 atribuições
+        movimentacoes += 3;
 
         int pivo = vetor[fim];
         int indiceMenores = inicio;
@@ -44,7 +44,6 @@ public class QuickSort {
             comparacoes++;
             if (vetor[i] <= pivo) {
 
-                // troca vetor[indiceMenores] com vetor[i]
                 temp = vetor[indiceMenores];
                 vetor[indiceMenores] = vetor[i];
                 vetor[i] = temp;
@@ -72,7 +71,7 @@ public class QuickSort {
      */
     public static void quickSort(int[] vetor, int inicio, int fim) {
 
-        comparacoes++; // comparação do "inicio < fim"
+        comparacoes++;
 
         if (inicio < fim) {
 

@@ -19,7 +19,6 @@ public class InsertionSort {
     /**
      * Implementação do algoritmo Insertion Sort.
      * @param vetor // vetor original
-     * @param estat // estatísticas
      */
     public static void ordenarInsertionSort(int[] vetor) {
 
@@ -33,7 +32,6 @@ public class InsertionSort {
             // Comparação inicial da entrada no loop
             countComparacoes++;
 
-            // Agora sempre ordena de forma CRESCENTE
             while (j >= 0 && vetor[j] > chave) {
 
                 countComparacoes++; // comparação do while

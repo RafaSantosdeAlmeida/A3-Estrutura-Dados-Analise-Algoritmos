@@ -19,7 +19,27 @@ public class QuickSort {
     }
 
     /**
-     * Faz a partição do vetor usando o pivô.
+     * Calcula e retorna o indice mediano de três do vetor.
+     * @param vetor Vetor a ser calculado o indice mediano.
+     * @param inicio Índice inicial.
+     * @param fim Índice final.
+     * @return Indice mediano.
+     */
+    private static int medianaTres(int[] vetor, int inicio, int fim) {
+        int meio = (inicio + fim) / 2;
+
+        int a = vetor[inicio];
+        int b = vetor[meio];
+        int c = vetor[fim];
+
+        comparacoes += 2;   // Média entre 1 e 3 comparações
+        if ((a > b) != (a > c)) return inicio;
+        else if ((b > a) != (b > c)) return meio;
+        else return fim;
+    }
+
+    /**
+     * Faz a partição do vetor usando o método de Hoare.
      * @param vetor Vetor a ser particionado.
      * @param inicio Índice inicial.
      * @param fim Índice final.
@@ -27,40 +47,41 @@ public class QuickSort {
      */
     private static int separar(int[] vetor, int inicio, int fim) {
 
-        // Escolhe um pivô aleatório e troca com a posição final
-        int indiceAleatorio = ThreadLocalRandom.current().nextInt(inicio, fim + 1);
-        int temp = vetor[indiceAleatorio];
-        vetor[indiceAleatorio] = vetor[fim];
-        vetor[fim] = temp;
+        int temp;
+        
+        int indicePivo = medianaTres(vetor, inicio, fim);   // Calcula o indice do pivô
 
-        movimentacoes += 3;
+        // Troca o pivô pelo primeiro elemento do vetor
+        temp = vetor[indicePivo];
+        vetor[indicePivo] = vetor[inicio];
+        vetor[inicio] = temp;
+        movimentacoes += 2;
 
-        int pivo = vetor[fim];
-        int indiceMenores = inicio;
+        int pivo = vetor[inicio];       // Escolha do pivô
 
-        // Loop de particionamento
-        for (int i = inicio; i < fim; i++) {
+        int indiceEsquerda = inicio - 1;    // Indice esquerda
+        int indiceDireita = fim + 1;        // Indice direita
 
+        while (true) { 
+
+            do { 
+                indiceEsquerda++;
+            } while (vetor[indiceEsquerda] < pivo);
+
+            do { 
+                indiceDireita--;
+            } while (vetor[indiceDireita] > pivo);
+
+            if (indiceEsquerda >= indiceDireita) return indiceDireita;
             comparacoes++;
-            if (vetor[i] <= pivo) {
 
-                temp = vetor[indiceMenores];
-                vetor[indiceMenores] = vetor[i];
-                vetor[i] = temp;
+            temp = vetor[indiceEsquerda];
+            vetor[indiceEsquerda] = vetor[indiceDireita];
+            vetor[indiceDireita] = temp;
+            movimentacoes += 2;
 
-                movimentacoes += 3;
-                indiceMenores++;
-            }
         }
 
-        // Troca final do pivô
-        temp = vetor[indiceMenores];
-        vetor[indiceMenores] = vetor[fim];
-        vetor[fim] = temp;
-
-        movimentacoes += 3;
-
-        return indiceMenores;
     }
 
     /**
@@ -77,8 +98,8 @@ public class QuickSort {
 
             int posPivo = separar(vetor, inicio, fim);
 
-            quickSort(vetor, inicio, posPivo - 1);
-            quickSort(vetor, posPivo + 1, fim);
+            quickSort(vetor, inicio, posPivo);// quickSort(vetor, inicio, posPivo - 1);
+            quickSort(vetor, posPivo + 1, fim);// quickSort(vetor, posPivo + 1, fim);
         }
     }
 

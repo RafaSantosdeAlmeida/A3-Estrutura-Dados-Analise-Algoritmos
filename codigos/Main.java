@@ -72,7 +72,7 @@ public class Main {
 
             System.out.println("TAMANHO DO VETOR: " + tamanho);
             System.out.println("----------------------------------------------------");
-            System.out.printf("%-15s %-12s %-15s %-15s%n", "ALGORITMO", "TEMPO(ms)", "COMPARAÇÕES", "MOVIMENTAÇÕES");
+            System.out.printf("%-15s %-12s %-15s %-15s%n", "ALGORITMO", "TEMPO(ns)", "COMPARAÇÕES", "MOVIMENTAÇÕES");
 
             System.out.printf("%-15s %-12d %-15d %-15d%n", "COUNT SORT", somaTempoCount/repeticoes, somaCompCount/repeticoes, somaMovCount/repeticoes);
             System.out.printf("%-15s %-12d %-15d %-15d%n", "INSERTION", somaTempoInsertion/repeticoes, somaCompInsertion/repeticoes, somaMovInsertion/repeticoes);
@@ -81,5 +81,14 @@ public class Main {
 
             System.out.println("----------------------------------------------------");
         }
+
+        // int[] vetorBase = gerarVetorAleatorio(7, 10);
+
+        // QuickSort.quickSort(vetorBase, 0, vetorBase.length - 1);
+
+        // System.out.print(vetorBase[0]);
+        // for (int i = 1; i < vetorBase.length; i++) {
+        //     System.out.print(", " + vetorBase[i]);
+        // }
     }
 }

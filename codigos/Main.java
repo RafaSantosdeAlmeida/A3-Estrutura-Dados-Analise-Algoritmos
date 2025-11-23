@@ -1,3 +1,4 @@
+
 public class Main {
 
     public static int[] gerarVetorAleatorio(int tamanho, int valorMaximoElementos) {
@@ -12,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
 
         int repeticoes = 3;
-        int[] tamanhos = {1000, 5000, 10000, 50000, 100000, 500000};
+        int[] tamanhos = {1000, 5000, 10000, 50000, 100000, 500000, 1000000};
 
         System.out.println("====================================================");
         System.out.println("   MÉDIA DE TEMPO / COMPARAÇÕES / MOVIMENTAÇÕES" );
@@ -29,6 +30,13 @@ public class Main {
 
                 int[] vetorBase = gerarVetorAleatorio(tamanho, 1000);
 
+                // QuickSort.quickSort(vetorBase, 0, vetorBase.length - 1);
+                // vetorBase = Arrays.stream(vetorBase)
+                //     .boxed()
+                //     .sorted(Comparator.reverseOrder())
+                //     .mapToInt(Integer::intValue)
+                //     .toArray();
+
                 // COUNT SORT
                 CountSort.resetContadores();
                 int[] v1 = vetorBase.clone();
@@ -40,14 +48,14 @@ public class Main {
                 somaMovCount += CountSort.getCountMovimentacoes();
 
                 // INSERTION SORT
-                InsertionSort.resetContadores();
-                int[] v2 = vetorBase.clone();
-                inicio = System.nanoTime();
-                InsertionSort.ordenarInsertionSort(v2);
-                tempo = (System.nanoTime() - inicio);
-                somaTempoInsertion += tempo;
-                somaCompInsertion += InsertionSort.getComparacoes();
-                somaMovInsertion += InsertionSort.getMovimentacoes();
+                // InsertionSort.resetContadores();
+                // int[] v2 = vetorBase.clone();
+                // inicio = System.nanoTime();
+                // InsertionSort.ordenarInsertionSort(v2);
+                // tempo = (System.nanoTime() - inicio);
+                // somaTempoInsertion += tempo;
+                // somaCompInsertion += InsertionSort.getComparacoes();
+                // somaMovInsertion += InsertionSort.getMovimentacoes();
 
                 // MERGE SORT
                 MergeSort.resetContadores();
@@ -75,20 +83,11 @@ public class Main {
             System.out.printf("%-15s %-12s %-15s %-15s%n", "ALGORITMO", "TEMPO(ns)", "COMPARAÇÕES", "MOVIMENTAÇÕES");
 
             System.out.printf("%-15s %-12d %-15d %-15d%n", "COUNT SORT", somaTempoCount/repeticoes, somaCompCount/repeticoes, somaMovCount/repeticoes);
-            System.out.printf("%-15s %-12d %-15d %-15d%n", "INSERTION", somaTempoInsertion/repeticoes, somaCompInsertion/repeticoes, somaMovInsertion/repeticoes);
+            // System.out.printf("%-15s %-12d %-15d %-15d%n", "INSERTION", somaTempoInsertion/repeticoes, somaCompInsertion/repeticoes, somaMovInsertion/repeticoes);
             System.out.printf("%-15s %-12d %-15d %-15d%n", "MERGE", somaTempoMerge/repeticoes, somaCompMerge/repeticoes, somaMovMerge/repeticoes);
             System.out.printf("%-15s %-12d %-15d %-15d%n", "QUICK", somaTempoQuick/repeticoes, somaCompQuick/repeticoes, somaMovQuick/repeticoes);
 
             System.out.println("----------------------------------------------------");
         }
-
-        // int[] vetorBase = gerarVetorAleatorio(7, 10);
-
-        // QuickSort.quickSort(vetorBase, 0, vetorBase.length - 1);
-
-        // System.out.print(vetorBase[0]);
-        // for (int i = 1; i < vetorBase.length; i++) {
-        //     System.out.print(", " + vetorBase[i]);
-        // }
     }
 }

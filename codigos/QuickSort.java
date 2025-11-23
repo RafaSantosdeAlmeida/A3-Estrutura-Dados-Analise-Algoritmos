@@ -75,6 +75,7 @@ public class QuickSort {
             if (indiceEsquerda >= indiceDireita) return indiceDireita;
             comparacoes++;
 
+            // Troca o elemento no indice da esquerda com o elemento do indice da direita
             temp = vetor[indiceEsquerda];
             vetor[indiceEsquerda] = vetor[indiceDireita];
             vetor[indiceDireita] = temp;
